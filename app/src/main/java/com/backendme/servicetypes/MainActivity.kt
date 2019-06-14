@@ -1,8 +1,7 @@
 package com.backendme.servicetypes
 
 import android.annotation.TargetApi
-import android.app.NotificationChannel
-import android.app.NotificationManager
+import android.app.*
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.ComponentName
@@ -14,20 +13,26 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
 
+
+    private var mcurrentTime: Calendar? = null
     val INTENTSERVICE_ID = "IntentService"
     val FOREGROUND_ID = "ForegroundService"
     val JOBINTENT_ID = "JobIntentService"
     val JOB_SERVICE_ID = "Jobservice"
     val TAG = "MainActivity"
+    val alarmBroadcastReceiver = AlarmBroadcastReceiver()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        mcurrentTime = Calendar.getInstance()
 
-
+        //  this.registerReceiver(alarmBroadcastReceiver, IntentFilter("com.backendme.servicetypes.Alarm"))
     }
 
     fun startIntentService(v: View) {
@@ -90,12 +95,50 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    fun showtime(v: View) {
+        mcurrentTime = Calendar.getInstance()
+        val hour = mcurrentTime?.get(Calendar.HOUR_OF_DAY)
+        val minutes = mcurrentTime?.get(Calendar.MINUTE)
+
+        val d = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+            mcurrentTime?.set(Calendar.HOUR, hourOfDay)
+            mcurrentTime?.set(Calendar.MINUTE, minute)
+
+        }, hour!!, minutes!!, true)
+
+        d.show()
+
+    }
+
+
+    fun startAlarmService(v: View) {
+
+        Log.i("Alarmmm", "Alarm set to :${mcurrentTime!!.time}")
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(applicationContext, AlarmBroadcastReceiver::class.java)
+        intent.action = "com.backendme.servicetypes.Alarm"
+        val pendingIntent = PendingIntent.getBroadcast(applicationContext, 0, intent, 0)
+
+
+        alarmManager.cancel(pendingIntent)
+
+        val SDK_INT = Build.VERSION.SDK_INT
+        if (SDK_INT < Build.VERSION_CODES.KITKAT)
+            alarmManager.set(AlarmManager.RTC_WAKEUP, mcurrentTime!!.timeInMillis, pendingIntent)
+        else if (Build.VERSION_CODES.KITKAT <= SDK_INT && SDK_INT < Build.VERSION_CODES.M)
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, mcurrentTime!!.timeInMillis, pendingIntent)
+        else if (SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, mcurrentTime!!.timeInMillis, pendingIntent)
+        }
+
+
+    }
+
     @TargetApi(Build.VERSION_CODES.O)
     private fun createnotificationchannel(id: String, name: String) {
         val channel = NotificationChannel(id, name, NotificationManager.IMPORTANCE_DEFAULT)
         val manager = getSystemService(NotificationManager::class.java)
         manager.createNotificationChannel(channel)
-
     }
 
 
