@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:gravity="center"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView android:layout_width="match_parent"
+              android:padding="3dp"
+              android:text="Using Simple Thread With Runnable We Can Update MainThread \n UI Views In This Example We Are Going To Change First Button Text "
+              android:layout_height="wrap_content"/>
+    <Button
+            android:text="Start Thread"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/start"/>
+    <Button
+            android:text="Stop Thread"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/stop"/>
+</LinearLayout>

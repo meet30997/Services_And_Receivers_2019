@@ -146,6 +146,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+    fun createThread(v: View) {
+        startActivity(Intent(this, BackgroundThread::class.java))
+
+    }
+
     @TargetApi(Build.VERSION_CODES.O)
     private fun createnotificationchannel(id: String, name: String) {
         val channel = NotificationChannel(id, name, NotificationManager.IMPORTANCE_DEFAULT)
