@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import java.util.*
 
 
@@ -32,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         mcurrentTime = Calendar.getInstance()
 
-        //  this.registerReceiver(alarmBroadcastReceiver, IntentFilter("com.backendme.servicetypes.Alarm"))
     }
 
     fun startIntentService(v: View) {
@@ -113,6 +113,7 @@ class MainActivity : AppCompatActivity() {
 
     fun startAlarmService(v: View) {
 
+        Toast.makeText(this, "Alarm set to :${mcurrentTime!!.time}", Toast.LENGTH_SHORT).show()
         Log.i("Alarmmm", "Alarm set to :${mcurrentTime!!.time}")
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(applicationContext, AlarmBroadcastReceiver::class.java)
@@ -131,6 +132,17 @@ class MainActivity : AppCompatActivity() {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, mcurrentTime!!.timeInMillis, pendingIntent)
         }
 
+
+    }
+
+    fun stopBroadcast(v: View) {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(applicationContext, AlarmBroadcastReceiver::class.java)
+        intent.action = "com.backendme.servicetypes.Alarm"
+        val pendingIntent = PendingIntent.getBroadcast(applicationContext, 0, intent, 0)
+        alarmManager.cancel(pendingIntent)
+        Log.i("Alarmmm", "Alarm Canceled")
+        Toast.makeText(this, "Alarm Canceled", Toast.LENGTH_SHORT).show()
 
     }
 
