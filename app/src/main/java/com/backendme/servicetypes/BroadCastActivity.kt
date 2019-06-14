@@ -52,7 +52,7 @@ class BroadCastActivity : AppCompatActivity() {
             }
 
             if ("Yes" == intent?.action) {
-                Log.i("snackBroad", "Connected")
+                // Log.i("snackBroad", "Connected")
                 snackbar = Snackbar.make(
                     context.findViewById(R.id.cons),
                     "Internet Is Available",
