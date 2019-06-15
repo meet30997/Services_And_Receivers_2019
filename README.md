@@ -7,4 +7,5 @@
 5. Broadcast Receiver For Showing Network Connectivity Change (SnackBar).
 6. AlarmManager.
 7. Simple Background Thread Example.
-8. HandlerThread Example For Ordered Work Execution And Also To Update MainThread UI.
+8. HandlerThread Example For Ordered Work Execution And Update MainThread UI.
+9. AsyncTask Example And Update MainThread UI.
