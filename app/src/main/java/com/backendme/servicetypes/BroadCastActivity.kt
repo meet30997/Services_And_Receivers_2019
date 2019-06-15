@@ -40,10 +40,10 @@ class BroadCastActivity : AppCompatActivity() {
         override fun onReceive(context: Context?, intent: Intent?) {
             (context as BroadCastActivity).register = true
             if ("No" == intent?.action) {
-                Log.i("snackBroad", "Not Connected")
+                Log.i("snackBroad", "Connectivity Not Available")
                 snackbar = Snackbar.make(
                     context.findViewById(R.id.cons),
-                    "No Internet Connection",
+                    "Connectivity Not Available",
                     Snackbar.LENGTH_INDEFINITE
                 )
                 snackbar.view.setBackgroundColor(Color.parseColor("#FF0000"))
@@ -55,7 +55,7 @@ class BroadCastActivity : AppCompatActivity() {
                 // Log.i("snackBroad", "Connected")
                 snackbar = Snackbar.make(
                     context.findViewById(R.id.cons),
-                    "Internet Is Available",
+                    "Connectivity Available",
                     Snackbar.LENGTH_INDEFINITE
                 )
                 snackbar.view.setBackgroundColor(Color.parseColor("#007ED9"))

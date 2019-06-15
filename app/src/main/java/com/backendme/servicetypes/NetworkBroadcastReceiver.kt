@@ -14,12 +14,12 @@ class NetworkBroadcastReceiver : BroadcastReceiver() {
             if (intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false)) {
                 val int1 = Intent("No")
                 context!!.sendBroadcast(int1)
-                Log.i("NetworkBroad", "Not Connected")
+                Log.i("NetworkBroad", "Connectivity Not Available")
             } else {
                 val int1 = Intent("Yes")
                 context!!.sendBroadcast(int1)
 
-                Log.i("NetworkBroad", "Connected")
+                Log.i("NetworkBroad", "Connectivity Available")
 
             }
         }
