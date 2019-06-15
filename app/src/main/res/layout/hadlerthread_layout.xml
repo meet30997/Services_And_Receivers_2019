@@ -46,4 +46,11 @@ Yes, the HandlerThread has it's own looper and handlers could be created and pos
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/remove"/>
+
+    <TextView android:layout_width="match_parent"
+              android:layout_marginTop="15dp"
+              android:padding="3dp"
+
+              android:text="we can also remove Messages and Runnables from its MessageQueue without quitting the Looper"
+              android:layout_height="wrap_content"/>
 </LinearLayout>

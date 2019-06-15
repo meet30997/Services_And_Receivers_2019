@@ -80,10 +80,10 @@ class HandlerThreadActivity : AppCompatActivity(), UiCallback {
 
             for (i in 0..6) {
                 Log.d("HandlerThreadActivity", "Runnable1: $i")
+                SystemClock.sleep(1000)
 
 
             }
-            SystemClock.sleep(1000)
         }
     }
 
