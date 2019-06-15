@@ -17,11 +17,11 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
 
-        if ("com.backendme.servicetypes.Alarm".equals(intent?.action)) {
 
             Toast.makeText(context, "Alarm Received", Toast.LENGTH_SHORT).show()
             Log.i("Alarmmm", "Alarm Received")
-            createnotificationchannel(context, ALARM_SERVICE, "intentservice")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            createnotificationchannel(context, ALARM_SERVICE, "alarmbroadcast")
 
             val notification = NotificationCompat.Builder(context!!, ALARM_SERVICE)
                 .setContentTitle("Alarm Service Triggered")
@@ -32,8 +32,6 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
 
             manager!!.notify(8, notification)
 
-
-        }
 
     }
 

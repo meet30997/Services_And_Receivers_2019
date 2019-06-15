@@ -20,7 +20,6 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
 
-    private var mcurrentTime: Calendar? = null
     val INTENTSERVICE_ID = "IntentService"
     val FOREGROUND_ID = "ForegroundService"
     val JOBINTENT_ID = "JobIntentService"
@@ -31,18 +30,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mcurrentTime = Calendar.getInstance()
 
     }
 
     fun startIntentService(v: View) {
-        createnotificationchannel(INTENTSERVICE_ID, "intentservice")
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            createnotificationchannel(INTENTSERVICE_ID, "intentservice")
         ContextCompat.startForegroundService(this, Intent(this, Intentservice::class.java))
     }
 
 
     fun startForegroundService(v: View) {
-        createnotificationchannel(FOREGROUND_ID, "forgroundservice")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            createnotificationchannel(FOREGROUND_ID, "forgroundservice")
         ContextCompat.startForegroundService(this, Intent(this, ForegroundService::class.java))
 
     }
@@ -54,15 +55,16 @@ class MainActivity : AppCompatActivity() {
 
 
     fun startJobIntentService(v: View) {
-        createnotificationchannel(JOBINTENT_ID, "jobintentservice")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            createnotificationchannel(JOBINTENT_ID, "jobintentservice")
         Jobintentservice().enqueueWork(this, Intent(this, Jobintentservice::class.java))
 
     }
 
 
     fun startJobService(v: View) {
-
-        createnotificationchannel(JOB_SERVICE_ID, "jobservice")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            createnotificationchannel(JOB_SERVICE_ID, "jobservice")
         val componentName = ComponentName(this, Jobservice::class.java)
         val info = JobInfo.Builder(456, componentName)
             .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED)
@@ -96,59 +98,64 @@ class MainActivity : AppCompatActivity() {
 
 
     fun showtime(v: View) {
-        mcurrentTime = Calendar.getInstance()
-        val hour = mcurrentTime?.get(Calendar.HOUR_OF_DAY)
-        val minutes = mcurrentTime?.get(Calendar.MINUTE)
+        val c2 = Calendar.getInstance()
+        val hour = c2.get(Calendar.HOUR_OF_DAY)
+        val minutes = c2.get(Calendar.MINUTE)
+
 
         val d = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-            mcurrentTime?.set(Calendar.HOUR, hourOfDay)
-            mcurrentTime?.set(Calendar.MINUTE, minute)
-
-        }, hour!!, minutes!!, true)
+            val c = Calendar.getInstance()
+            c.set(Calendar.HOUR_OF_DAY, hourOfDay)
+            c.set(Calendar.MINUTE, minute)
+            c.set(Calendar.SECOND, 0)
+            createalarm(c)
+        }, hour, minutes, false)
 
         d.show()
 
     }
 
 
-    fun startAlarmService(v: View) {
+    private fun createalarm(c: Calendar) {
 
-        Toast.makeText(this, "Alarm set to :${mcurrentTime!!.time}", Toast.LENGTH_SHORT).show()
-        Log.i("Alarmmm", "Alarm set to :${mcurrentTime!!.time}")
+
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(applicationContext, AlarmBroadcastReceiver::class.java)
+        val intent = Intent(this, AlarmBroadcastReceiver::class.java)
         intent.action = "com.backendme.servicetypes.Alarm"
-        val pendingIntent = PendingIntent.getBroadcast(applicationContext, 0, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
 
+        if (c.before(Calendar.getInstance())) {
+            c.add(Calendar.DATE, 1)
+        }
 
-        alarmManager.cancel(pendingIntent)
 
         val SDK_INT = Build.VERSION.SDK_INT
         when {
             SDK_INT < Build.VERSION_CODES.KITKAT -> alarmManager.set(
                 AlarmManager.RTC_WAKEUP,
-                mcurrentTime!!.timeInMillis,
+                c.timeInMillis,
                 pendingIntent
             )
             Build.VERSION_CODES.KITKAT <= SDK_INT && SDK_INT < Build.VERSION_CODES.M -> alarmManager.setExact(
                 AlarmManager.RTC_WAKEUP,
-                mcurrentTime!!.timeInMillis,
+                c.timeInMillis,
                 pendingIntent
             )
             SDK_INT >= Build.VERSION_CODES.M -> alarmManager.setExactAndAllowWhileIdle(
                 AlarmManager.RTC_WAKEUP,
-                mcurrentTime!!.timeInMillis,
+                c.timeInMillis,
                 pendingIntent
             )
         }
 
+        Toast.makeText(this, "Alarm set to :${c.time}", Toast.LENGTH_SHORT).show()
+        Log.i("Alarmmm", "Alarm set to :${c.time}")
 
     }
 
     fun stopBroadcast(v: View) {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(applicationContext, AlarmBroadcastReceiver::class.java)
-        intent.action = "com.backendme.servicetypes.Alarm"
         val pendingIntent = PendingIntent.getBroadcast(applicationContext, 0, intent, 0)
         alarmManager.cancel(pendingIntent)
         Log.i("Alarmmm", "Alarm Canceled")
