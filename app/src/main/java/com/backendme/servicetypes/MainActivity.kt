@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -26,6 +27,9 @@ class MainActivity : AppCompatActivity() {
     val JOB_SERVICE_ID = "Jobservice"
     val TAG = "MainActivity"
     val alarmBroadcastReceiver = AlarmBroadcastReceiver()
+
+    private val handlerforrepeat = Handler()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -183,6 +187,27 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, AsyncTaskActivity::class.java))
 
     }
+
+
+    fun startrepeat(v: View) {
+
+        runnable.run()
+
+    }
+
+    fun stoprepeat(v: View) {
+
+        handlerforrepeat.removeCallbacks(runnable)
+    }
+
+    private val runnable = object : Runnable {
+        override fun run() {
+            Toast.makeText(this@MainActivity, "Repeating Toast....", Toast.LENGTH_SHORT).show()
+            handlerforrepeat.postDelayed(this, 3000)
+        }
+    }
+
+
 
     @TargetApi(Build.VERSION_CODES.O)
     private fun createnotificationchannel(id: String, name: String) {

@@ -1,112 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:layout_marginTop="15dp"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                                            xmlns:tools="http://schemas.android.com/tools"
+                                            android:layout_height="wrap_content"
+                                            android:layout_width="match_parent"
+>
 
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Start IntentService"
-            android:onClick="startIntentService"
-    />
 
-    <LinearLayout android:layout_width="match_parent"
-                  android:padding="15dp"
-                  android:gravity="center"
-                  android:layout_height="wrap_content">
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp"
+            android:layout_height="match_parent"
+            tools:context=".MainActivity">
+
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start Foreground Service"
-                android:onClick="startForegroundService"
+                android:text="Start IntentService"
+                android:onClick="startIntentService"
         />
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:padding="15dp"
+                      android:gravity="center"
+                      android:layout_height="wrap_content">
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start Foreground Service"
+                    android:onClick="startForegroundService"
+            />
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stop It "
+                    android:onClick="StopForegroundService"
+            />
+        </LinearLayout>
+
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Stop It "
-                android:onClick="StopForegroundService"
+                android:text="Start JobIntentService"
+                android:layout_marginBottom="15dp"
+                android:onClick="startJobIntentService"
         />
+
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="horizontal"
+                      android:gravity="center"
+                      android:layout_height="wrap_content">
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start JobService"
+                    android:onClick="startJobService"
+            />
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stop IT"
+                    android:onClick="stopJobService"
+            />
+        </LinearLayout>
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Listen Network Change Broadcast"
+                android:layout_marginTop="15dp"
+                android:onClick="startBroadcast"
+        />
+
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:padding="15dp"
+                      android:gravity="center"
+                      android:layout_height="wrap_content">
+            <Button
+                    android:layout_width="wrap_content"
+                    android:onClick="showtime"
+                    android:layout_height="wrap_content"
+                    android:text="Pick Time And Start Alarm Service"
+            />
+
+
+            <Button
+                    android:layout_width="wrap_content"
+                    android:onClick="stopBroadcast"
+                    android:layout_height="wrap_content"
+                    android:text="Stop It "/>
+
+        </LinearLayout>
+
+        <Button
+                android:layout_width="wrap_content"
+                android:onClick="createThread"
+                android:layout_height="wrap_content"
+                android:text="Simple Thread"/>
+
+        <Button
+                android:layout_width="wrap_content"
+                android:onClick="handlrethread"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="HandlerThread Message To Update UI"/>
+
+        <Button
+                android:layout_width="wrap_content"
+                android:onClick="asyncActivity"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="AsyncTask"/>
+
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:padding="15dp"
+                      android:gravity="center"
+                      android:layout_height="wrap_content">
+            <Button
+                    android:layout_width="wrap_content"
+                    android:onClick="startrepeat"
+                    android:layout_height="wrap_content"
+                    android:text="Start Repeating of runnable"
+            />
+
+
+            <Button
+                    android:layout_width="wrap_content"
+                    android:onClick="stoprepeat"
+                    android:layout_height="wrap_content"
+                    android:text="Stop It "/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Start JobIntentService"
-            android:layout_marginBottom="15dp"
-            android:onClick="startJobIntentService"
-    />
-
-
-    <LinearLayout android:layout_width="match_parent"
-                  android:orientation="horizontal"
-                  android:gravity="center"
-                  android:layout_height="wrap_content">
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Start JobService"
-                android:onClick="startJobService"
-        />
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Stop IT"
-                android:onClick="stopJobService"
-        />
-    </LinearLayout>
-
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Listen Network Change Broadcast"
-            android:layout_marginTop="15dp"
-            android:onClick="startBroadcast"
-    />
-
-
-    <LinearLayout android:layout_width="match_parent"
-                  android:padding="15dp"
-                  android:gravity="center"
-                  android:layout_height="wrap_content">
-        <Button
-                android:layout_width="wrap_content"
-                android:onClick="showtime"
-                android:layout_height="wrap_content"
-                android:text="Pick Time And Start Alarm Service"
-        />
-
-
-        <Button
-                android:layout_width="wrap_content"
-                android:onClick="stopBroadcast"
-                android:layout_height="wrap_content"
-                android:text="Stop It "/>
-
-    </LinearLayout>
-
-    <Button
-            android:layout_width="wrap_content"
-            android:onClick="createThread"
-            android:layout_height="wrap_content"
-            android:text="Simple Thread"/>
-
-    <Button
-            android:layout_width="wrap_content"
-            android:onClick="handlrethread"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="HandlerThread Message To Update UI"/>
-
-    <Button
-            android:layout_width="wrap_content"
-            android:onClick="asyncActivity"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="AsyncTask"/>
-</LinearLayout>
+</android.support.v4.widget.NestedScrollView>
