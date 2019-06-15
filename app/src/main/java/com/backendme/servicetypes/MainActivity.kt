@@ -171,6 +171,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun asyncActivity(V: View) {
+
+        startActivity(Intent(this, AsyncTaskActivity::class.java))
+
+    }
+
     @TargetApi(Build.VERSION_CODES.O)
     private fun createnotificationchannel(id: String, name: String) {
         val channel = NotificationChannel(id, name, NotificationManager.IMPORTANCE_DEFAULT)

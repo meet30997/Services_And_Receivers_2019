@@ -29,6 +29,7 @@
         <activity android:name=".BroadCastActivity"/>
         <activity android:name=".BackgroundThread"/>
         <activity android:name=".HandlerThreadActivity"/>
+        <activity android:name=".AsyncTaskActivity"/>
         <service android:name=".Intentservice"/>
         <service android:name=".ForegroundService"/>
         <service android:name=".Jobintentservice" android:permission="android.permission.BIND_JOB_SERVICE"/>
