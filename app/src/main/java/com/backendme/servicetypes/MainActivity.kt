@@ -124,12 +124,22 @@ class MainActivity : AppCompatActivity() {
         alarmManager.cancel(pendingIntent)
 
         val SDK_INT = Build.VERSION.SDK_INT
-        if (SDK_INT < Build.VERSION_CODES.KITKAT)
-            alarmManager.set(AlarmManager.RTC_WAKEUP, mcurrentTime!!.timeInMillis, pendingIntent)
-        else if (Build.VERSION_CODES.KITKAT <= SDK_INT && SDK_INT < Build.VERSION_CODES.M)
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, mcurrentTime!!.timeInMillis, pendingIntent)
-        else if (SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, mcurrentTime!!.timeInMillis, pendingIntent)
+        when {
+            SDK_INT < Build.VERSION_CODES.KITKAT -> alarmManager.set(
+                AlarmManager.RTC_WAKEUP,
+                mcurrentTime!!.timeInMillis,
+                pendingIntent
+            )
+            Build.VERSION_CODES.KITKAT <= SDK_INT && SDK_INT < Build.VERSION_CODES.M -> alarmManager.setExact(
+                AlarmManager.RTC_WAKEUP,
+                mcurrentTime!!.timeInMillis,
+                pendingIntent
+            )
+            SDK_INT >= Build.VERSION_CODES.M -> alarmManager.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                mcurrentTime!!.timeInMillis,
+                pendingIntent
+            )
         }
 
 
@@ -149,6 +159,15 @@ class MainActivity : AppCompatActivity() {
 
     fun createThread(v: View) {
         startActivity(Intent(this, BackgroundThread::class.java))
+
+    }
+
+
+    fun handlrethread(v: View) {
+
+
+        startActivity(Intent(this, HandlerThreadActivity::class.java))
+
 
     }
 

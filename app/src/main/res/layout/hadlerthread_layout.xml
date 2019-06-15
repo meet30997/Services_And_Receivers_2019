@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:gravity="center"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+    <TextView android:layout_width="match_parent"
+              android:padding="3dp"
+              android:id="@+id/textstart"
+              android:text="You would use HandlerThread in case that you want to perform background tasks one at a time and you want that those tasks will run at the order of execution.
+
+For example if you want to make several network background operations one by one.
+
+Yes, the HandlerThread has it's own looper and handlers could be created and post it, (so it would not block the main thread)."
+              android:layout_height="wrap_content"/>
+
+
+    <TextView android:layout_width="match_parent"
+              android:layout_marginTop="15dp"
+              android:padding="3dp"
+
+              android:text="When You Rotate Your Device It Stop The Execution Of Future Runnable But Finish The Already Dispatched Runnable.This Problem Can Be Solved By using handlerthread.quitSafely() So it will stop after finishing all the work or runnable."
+              android:layout_height="wrap_content"/>
+
+
+    <TextView android:layout_width="match_parent"
+              android:layout_marginTop="15dp"
+              android:padding="3dp"
+
+              android:text="By Starting A Work We Can Send Message back to UIThread Using Interface and By Using Another Handler In Activity We Can Check That Msg And Update The UI Views."
+              android:layout_height="wrap_content"/>
+    <Button
+            android:text="Start Work"
+            android:layout_width="match_parent"
+            android:onClick="startwork"
+            android:layout_marginTop="15dp"
+
+            android:layout_height="wrap_content"
+            android:id="@+id/start"/>
+    <Button
+            android:text="Remove Message"
+            android:layout_marginTop="15dp"
+            android:onClick="removemsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/remove"/>
+</LinearLayout>

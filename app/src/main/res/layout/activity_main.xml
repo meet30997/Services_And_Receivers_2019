@@ -101,4 +101,11 @@
             android:onClick="createThread"
             android:layout_height="wrap_content"
             android:text="Simple Thread"/>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:onClick="handlrethread"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="HandlerThread Message To Update UI"/>
 </LinearLayout>
